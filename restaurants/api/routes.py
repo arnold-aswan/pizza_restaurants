@@ -3,6 +3,11 @@ from flask import jsonify, make_response
 from flask_restful import Resource, request
 from .models import Pizza, Restaurant, RestaurantPizza, db
 
+
+class Home(Resource):
+    def get(self):
+        return 'Welcome to Restaurant Pizzas Flask App'
+    
 class Pizzas(Resource):
     def get(self):
         pizzas = [pizza.to_dict() for pizza in Pizza.query.all()]    
@@ -79,7 +84,7 @@ class RestaurantPizzas(Resource):
             return {"errors": ["validation errors"]} , 404   
         
         
-    
+api.add_resource(Home, "/")    
 api.add_resource(Pizzas, "/pizzas")    
 api.add_resource(Restaurants, "/restaurants")
 api.add_resource(RestaurantsById, "/restaurants/<int:id>")
